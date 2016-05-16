@@ -5,6 +5,8 @@
     "use strict";
     var app = {
         catsPool: [],
+        catsLoved: [],
+        catsHated: [],
         initialize: function () {
             this.bindEvents();
         },
