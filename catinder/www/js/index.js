@@ -7,7 +7,16 @@
         catsPool: [],
         catsLoved: [],
         catsHated: [],
+        catinderProfil: null,
+        catinderPictureHolder: null,
+        catinderInfosName: null,
+        catinderInfosAge: null,
         initialize: function () {
+            this.catinderProfil = document.querySelector(".catinder-profil");
+            this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
+            this.catinderInfosName = document.querySelector(".catinder-infos-name");
+            this.catinderInfosAge = document.querySelector(".catinder-infos-age");
+
             this.bindEvents();
         },
         bindEvents: function () {
