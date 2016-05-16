@@ -64,6 +64,22 @@
                 this.displayOneCat(this.currentCat);
             }
         },
+        displayOneCat: function (cat) {
+            var self = this;
+            var img = new Image();
+            img.src = cat.picUrl;
+            img.onload = function () {
+                if (self.catinderPictureHolder.children[0]) {
+                    self.catinderPictureHolder.removeChild(self.catinderPictureHolder.firstChild);
+                }
+                img.className = "catinder-picture-img";
+                self.catinderPictureHolder.appendChild(img);
+                self.catinderInfosName.innerHTML = cat.name;
+                self.catinderInfosAge.innerHTML = cat.age + " ans";
+
+                self.loading = false;
+            };
+        },
         checkRemainingCats: function () {
             if (this.catsPool.length === 0) {
                 this.getCats();
