@@ -46,7 +46,14 @@
             });
             this.prepareOneCat();
         },
+        isCatIn: function (cat, array) {
+            var i;
+            for (i = 0; i < array.length; i += 1) {
+                if (array[i].sha1 === cat.sha1) {
+                    return true;
+                }
             }
+            return false;
         },
         onDeviceReady: function () {
             this.receivedEvent('deviceready');
