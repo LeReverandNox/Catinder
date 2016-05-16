@@ -11,12 +11,18 @@
         catinderPictureHolder: null,
         catinderInfosName: null,
         catinderInfosAge: null,
+        geoloc: {
+            enabled: false,
+            coords: {}
+        },
+
         initialize: function () {
             this.catinderProfil = document.querySelector(".catinder-profil");
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
             this.catinderInfosAge = document.querySelector(".catinder-infos-age");
 
+            this.enableGeoloc();
             this.bindEvents();
         },
         bindEvents: function () {
@@ -89,6 +95,15 @@
         },
         offline: function () {
             alert('On est Offline !');
+        enableGeoloc: function () {
+            var self = this;
+            navigator.geolocation.getCurrentPosition(function (data) {
+                self.geoloc.enabled = true;
+                self.geoloc.coordinates = {
+                    lat: data.coords.latitude,
+                    long: data.coords.longitude
+                };
+            });
         },
         online: function () {
             alert('On est Online !');
