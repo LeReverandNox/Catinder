@@ -57,6 +57,13 @@
         },
         onDeviceReady: function () {
             this.receivedEvent('deviceready');
+        prepareOneCat: function () {
+            if (this.checkRemainingCats() === true) {
+                this.currentCat = this.catsPool[0];
+                this.catsPool.splice(0, 1);
+                this.displayOneCat(this.currentCat);
+            }
+        },
         checkRemainingCats: function () {
             if (this.catsPool.length === 0) {
                 this.getCats();
