@@ -35,6 +35,7 @@
             document.addEventListener('online', this.online, false);
             document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
             document.querySelector(".catinder-dislike").addEventListener("touchstart", this.dislikeCat.bind(this));
+            this.startCatDoubleTap();
         getCats: function () {
             var self = this;
             var url = "http://catinder.samsung-campus.net/proxy.php";
@@ -131,6 +132,20 @@
         },
         online: function () {
             alert('On est Online !');
+        startCatDoubleTap: function () {
+            var self = this;
+            var delays = [];
+            var duration = 300;
+            this.catinderPictureHolder.addEventListener("touchstart", function (event) {
+                delays.push(event.timeStamp);
+                if (delays.length === 2) {
+                    if (delays[1] - delays[0] <= duration) {
+                        self.likeCat();
+                    }
+                    delays.splice(0, 1);
+                }
+            });
+        },
         loadFromStorage: function () {
             if (localStorage.getItem("catinder-loved") !== null) {
                 this.catsLoved = JSON.parse(localStorage.getItem("catinder-loved"));
