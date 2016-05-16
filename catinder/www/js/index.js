@@ -57,6 +57,12 @@
         },
         onDeviceReady: function () {
             this.receivedEvent('deviceready');
+        checkRemainingCats: function () {
+            if (this.catsPool.length === 0) {
+                this.getCats();
+                return false;
+            }
+            return true;
         },
         offline: function () {
             alert('On est Offline !');
