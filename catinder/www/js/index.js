@@ -11,6 +11,7 @@
         catinderPictureHolder: null,
         catinderInfosName: null,
         catinderInfosAge: null,
+        loading: false,
         currentCat: null,
         geoloc: {
             enabled: false,
@@ -31,6 +32,7 @@
             document.addEventListener('deviceready', this.onDeviceReady, false);
             document.addEventListener('offline', this.offline, false);
             document.addEventListener('online', this.online, false);
+            document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
         getCats: function () {
             var self = this;
             var url = "http://catinder.samsung-campus.net/proxy.php";
@@ -97,6 +99,15 @@
         },
         offline: function () {
             alert('On est Offline !');
+        likeCat: function () {
+            if (this.loading === false) {
+                this.loading = true;
+                this.catinderPictureHolder.children[0].className += " liked";
+                this.catsLoved.push(this.currentCat);
+                this.saveToStorage();
+                this.prepareOneCat();
+            }
+        },
         enableGeoloc: function () {
             var self = this;
             navigator.geolocation.getCurrentPosition(function (data) {
