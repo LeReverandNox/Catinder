@@ -33,6 +33,7 @@
             document.addEventListener('offline', this.offline, false);
             document.addEventListener('online', this.online, false);
             document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
+            document.querySelector(".catinder-dislike").addEventListener("touchstart", this.dislikeCat.bind(this));
         getCats: function () {
             var self = this;
             var url = "http://catinder.samsung-campus.net/proxy.php";
@@ -104,6 +105,15 @@
                 this.loading = true;
                 this.catinderPictureHolder.children[0].className += " liked";
                 this.catsLoved.push(this.currentCat);
+                this.saveToStorage();
+                this.prepareOneCat();
+            }
+        },
+        dislikeCat: function () {
+            if (this.loading === false) {
+                this.loading = true;
+                this.catinderPictureHolder.children[0].className += " disliked";
+                this.catsHated.push(this.currentCat);
                 this.saveToStorage();
                 this.prepareOneCat();
             }
