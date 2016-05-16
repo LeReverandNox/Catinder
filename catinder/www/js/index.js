@@ -24,6 +24,7 @@
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
             this.catinderInfosAge = document.querySelector(".catinder-infos-age");
 
+            this.loadFromStorage();
             this.enableGeoloc();
             this.bindEvents();
             this.getCats();
@@ -130,9 +131,19 @@
         },
         online: function () {
             alert('On est Online !');
+        loadFromStorage: function () {
+            if (localStorage.getItem("catinder-loved") !== null) {
+                this.catsLoved = JSON.parse(localStorage.getItem("catinder-loved"));
+            }
+            if (localStorage.getItem("catinder-hated") !== null) {
+                this.catsHated = JSON.parse(localStorage.getItem("catinder-hated"));
+            }
         },
         receivedEvent: function (id) {
             alert("Le device est pret");
+        saveToStorage: function () {
+            localStorage.setItem("catinder-loved", JSON.stringify(this.catsLoved));
+            localStorage.setItem("catinder-hated", JSON.stringify(this.catsHated));
         }
     };
     app.initialize();
