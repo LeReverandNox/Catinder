@@ -30,9 +30,6 @@
             this.getCats();
         },
         bindEvents: function () {
-            document.addEventListener('deviceready', this.onDeviceReady, false);
-            document.addEventListener('offline', this.offline, false);
-            document.addEventListener('online', this.online, false);
             document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
             document.querySelector(".catinder-dislike").addEventListener("touchstart", this.dislikeCat.bind(this));
             this.startCatSwipe();
@@ -70,8 +67,6 @@
             }
             return false;
         },
-        onDeviceReady: function () {
-            this.receivedEvent('deviceready');
         prepareOneCat: function () {
             if (this.checkRemainingCats() === true) {
                 this.currentCat = this.catsPool[0];
@@ -102,8 +97,6 @@
             }
             return true;
         },
-        offline: function () {
-            alert('On est Offline !');
         likeCat: function () {
             if (this.loading === false) {
                 this.loading = true;
@@ -132,8 +125,6 @@
                 };
             });
         },
-        online: function () {
-            alert('On est Online !');
         startCatDoubleTap: function () {
             var self = this;
             var delays = [];
@@ -185,8 +176,6 @@
                 this.catsHated = JSON.parse(localStorage.getItem("catinder-hated"));
             }
         },
-        receivedEvent: function (id) {
-            alert("Le device est pret");
         saveToStorage: function () {
             localStorage.setItem("catinder-loved", JSON.stringify(this.catsLoved));
             localStorage.setItem("catinder-hated", JSON.stringify(this.catsHated));
