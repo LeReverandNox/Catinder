@@ -4,6 +4,7 @@
 (function () {
     "use strict";
     var app = {
+        catsPool: [],
         initialize: function () {
             this.bindEvents();
         },
@@ -11,6 +12,21 @@
             document.addEventListener('deviceready', this.onDeviceReady, false);
             document.addEventListener('offline', this.offline, false);
             document.addEventListener('online', this.online, false);
+        getCats: function () {
+            var self = this;
+            var url = "http://catinder.samsung-campus.net/proxy.php";
+
+            if (this.geoloc.enabled) {
+                url = url + "?position=" + this.geoloc.coordinates.lat + "," + this.geoloc.coordinates.long;
+            }
+            $.ajax({
+                url: url
+            }).done(function (data) {
+                var cats = JSON.parse(data).results;
+                self.proceedCats(cats);
+            });
+        },
+            }
         },
         onDeviceReady: function () {
             this.receivedEvent('deviceready');
