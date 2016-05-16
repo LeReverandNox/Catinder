@@ -35,7 +35,9 @@
             document.addEventListener('online', this.online, false);
             document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
             document.querySelector(".catinder-dislike").addEventListener("touchstart", this.dislikeCat.bind(this));
+            this.startCatSwipe();
             this.startCatDoubleTap();
+        },
         getCats: function () {
             var self = this;
             var url = "http://catinder.samsung-campus.net/proxy.php";
@@ -143,6 +145,35 @@
                         self.likeCat();
                     }
                     delays.splice(0, 1);
+                }
+            });
+        },
+        startCatSwipe: function () {
+            var movesX = [];
+            var delays = [];
+            var treshold = 150;
+            var duration = 1000;
+            var self = this;
+
+            this.catinderPictureHolder.addEventListener("touchstart", function (e) {
+                movesX = [];
+                delays = [];
+
+                delays.push(e.timeStamp);
+                console.log(e.touches[0].clientX);
+
+                self.catinderPictureHolder.addEventListener("touchmove", function (e) {
+                    movesX.push(e.touches[0].clientX);
+                });
+            });
+
+            this.catinderPictureHolder.addEventListener("touchend", function (e) {
+                delays.push(e.timeStamp);
+
+                if (delays[1] - delays[0] <= duration) {
+                    if (movesX[movesX.length - 1] - movesX[0] >= treshold || movesX[0] - movesX[movesX.length - 1] >= treshold) {
+                        self.dislikeCat();
+                    }
                 }
             });
         },
