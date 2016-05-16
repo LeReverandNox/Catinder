@@ -26,6 +26,15 @@
                 self.proceedCats(cats);
             });
         },
+        proceedCats: function (cats) {
+            var self = this;
+            cats.forEach(function (cat) {
+                if (self.isCatIn(cat, self.catsHated) === false && self.isCatIn(cat, self.catsLoved) === false) {
+                    self.catsPool.push(cat);
+                }
+            });
+            this.prepareOneCat();
+        },
             }
         },
         onDeviceReady: function () {
