@@ -11,6 +11,7 @@
         catinderPictureHolder: null,
         catinderInfosName: null,
         catinderInfosAge: null,
+        currentCat: null,
         geoloc: {
             enabled: false,
             coords: {}
@@ -24,6 +25,7 @@
 
             this.enableGeoloc();
             this.bindEvents();
+            this.getCats();
         },
         bindEvents: function () {
             document.addEventListener('deviceready', this.onDeviceReady, false);
