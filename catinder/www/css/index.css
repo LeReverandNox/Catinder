@@ -143,7 +143,7 @@ h1 {
     display: none;
 }
 .catinder-favoris-li img {
-    width: 50px;
+    width: 150px;
 }
 .catinder-favoris-buttons {
     text-align: center;
@@ -179,4 +179,10 @@ h1 {
     width: 150px;
     z-index: 2;
     margin-left: -150px;
+}
+.sidebar-list li {
+    font-size: 2em;
+}
+ul {
+    list-style-type: none;
 }
