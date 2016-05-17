@@ -32,6 +32,8 @@
         bindEvents: function () {
             document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
             document.querySelector(".catinder-dislike").addEventListener("touchstart", this.dislikeCat.bind(this));
+            document.querySelector(".catinder-clear-loved").addEventListener("touchstart", this.clearLoved.bind(this));
+            document.querySelector(".catinder-clear-hated").addEventListener("touchstart", this.clearHated.bind(this));
             this.startCatSwipe();
             this.startCatDoubleTap();
         },
