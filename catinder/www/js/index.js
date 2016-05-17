@@ -37,6 +37,7 @@
             document.querySelector(".catinder-dislike").addEventListener("touchstart", this.dislikeCat.bind(this));
             document.querySelector(".catinder-clear-loved").addEventListener("touchstart", this.clearLoved.bind(this));
             document.querySelector(".catinder-clear-hated").addEventListener("touchstart", this.clearHated.bind(this));
+            document.querySelector(".burger-button").addEventListener("touchstart", this.showSidebar.bind(this));
             this.startCatSwipe();
             this.startCatDoubleTap();
         },
