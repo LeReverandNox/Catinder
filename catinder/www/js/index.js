@@ -184,6 +184,10 @@
             this.catsLoved = [];
             this.saveToStorage();
         },
+        clearHated: function () {
+            this.catsHated = [];
+            this.saveToStorage();
+        },
         }
     };
     app.initialize();
