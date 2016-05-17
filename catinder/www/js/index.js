@@ -19,6 +19,8 @@
             coords: {}
         },
         sidebar: null,
+        mainSection: null,
+        favorisSection: null,
         initialize: function () {
             this.catinderProfil = document.querySelector(".catinder-profil");
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
@@ -26,6 +28,8 @@
             this.catinderInfosAge = document.querySelector(".catinder-infos-age");
             this.catinderFavorisList = document.querySelector(".catinder-favoris-list");
             this.sidebar = $('.sidebar');
+            this.mainSection = $('.catinder-home');
+            this.favorisSection = $('.catinder-favoris');
 
             this.loadFromStorage();
             this.enableGeoloc();
@@ -38,6 +42,7 @@
             document.querySelector(".catinder-clear-loved").addEventListener("touchstart", this.clearLoved.bind(this));
             document.querySelector(".catinder-clear-hated").addEventListener("touchstart", this.clearHated.bind(this));
             document.querySelector(".burger-button").addEventListener("touchstart", this.showSidebar.bind(this));
+            document.querySelector(".sidebar-list").addEventListener("touchstart", this.handleSidebar.bind(this));
             this.startCatSwipe();
             this.startCatDoubleTap();
         },
@@ -157,7 +162,6 @@
                 delays = [];
 
                 delays.push(e.timeStamp);
-                console.log(e.touches[0].clientX);
 
                 self.catinderPictureHolder.addEventListener("touchmove", function (e) {
                     movesX.push(e.touches[0].clientX);
@@ -188,6 +192,7 @@
         },
         clearLoved: function () {
             this.catsLoved = [];
+            this.updateFavorisList();
             this.saveToStorage();
         },
         clearHated: function () {
@@ -219,6 +224,30 @@
                 left: "-=150"
             }, 750);
         },
+        handleSidebar: function (event) {
+            switch (event.target.dataset.menuSection) {
+            case "home":
+                this.showSection("home");
+                this.hideSidebar();
+                break;
+            case "favoris":
+                this.showSection("favoris");
+                this.hideSidebar();
+                break;
+            }
+        },
+        showSection: function (section) {
+            switch (section) {
+            case 'home':
+                this.mainSection.show();
+                this.favorisSection.hide();
+                break;
+            case 'favoris':
+                this.updateFavorisList();
+                this.favorisSection.show();
+                this.mainSection.hide();
+                break;
+            }
         }
     };
     app.initialize();
