@@ -22,6 +22,7 @@
         mainSection: null,
         favorisSection: null,
         isOnline: true,
+        isSidebarOpen: false,
         initialize: function () {
             this.catinderProfil = document.querySelector(".catinder-profil");
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
@@ -47,6 +48,7 @@
             document.querySelector(".refresh-button").addEventListener("touchstart", this.getCats.bind(this));
             document.addEventListener("offline", this.changeConnectionStatus.bind(this));
             document.addEventListener("online", this.changeConnectionStatus.bind(this));
+            document.addEventListener("touchstart", this.hideSidebar.bind(this));
 
             this.startCatSwipe();
             this.startCatDoubleTap();
@@ -67,6 +69,7 @@
                 });
             } else {
                 this.displayNetworkError();
+                this.loading = false;
             }
         },
         proceedCats: function (cats) {
@@ -118,27 +121,31 @@
             return true;
         },
         likeCat: function () {
-            if (this.loading === false && this.currentCat !== null) {
-                this.loading = true;
-                this.catinderPictureHolder.children[0].className += " liked";
-                this.catsLoved.push(this.currentCat);
-                this.currentCat = null;
-                this.saveToStorage();
-                this.prepareOneCat();
-            } else {
-                this.displayNetworkError();
+            if (this.loading === false) {
+                if (this.currentCat !== null) {
+                    this.loading = true;
+                    this.catinderPictureHolder.children[0].className += " liked";
+                    this.catsLoved.push(this.currentCat);
+                    this.currentCat = null;
+                    this.saveToStorage();
+                    this.prepareOneCat();
+                } else {
+                    this.displayNetworkError();
+                }
             }
         },
         dislikeCat: function () {
-            if (this.loading === false && this.currentCat !== null) {
-                this.loading = true;
-                this.catinderPictureHolder.children[0].className += " disliked";
-                this.catsHated.push(this.currentCat);
-                this.currentCat = null;
-                this.saveToStorage();
-                this.prepareOneCat();
-            } else {
-                this.displayNetworkError();
+            if (this.loading === false) {
+                if (this.currentCat !== null) {
+                    this.loading = true;
+                    this.catinderPictureHolder.children[0].className += " disliked";
+                    this.catsHated.push(this.currentCat);
+                    this.currentCat = null;
+                    this.saveToStorage();
+                    this.prepareOneCat();
+                } else {
+                    this.displayNetworkError();
+                }
             }
         },
         enableGeoloc: function () {
@@ -172,23 +179,30 @@
             var duration = 1000;
             var self = this;
 
-            this.catinderPictureHolder.addEventListener("touchstart", function (e) {
+            // this.catinderPictureHolder.addEventListener("touchstart", function (e) {
+            document.querySelector('body').addEventListener("touchstart", function (e) {
                 movesX = [];
                 delays = [];
 
                 delays.push(e.timeStamp);
 
-                self.catinderPictureHolder.addEventListener("touchmove", function (e) {
+                // self.catinderPictureHolder.addEventListener("touchmove", function (e) {
+                document.querySelector('body').addEventListener("touchmove", function (e) {
                     movesX.push(e.touches[0].clientX);
                 });
             });
 
-            this.catinderPictureHolder.addEventListener("touchend", function (e) {
+            // this.catinderPictureHolder.addEventListener("touchend", function (e) {
+            document.querySelector('body').addEventListener("touchend", function (e) {
                 delays.push(e.timeStamp);
 
                 if (delays[1] - delays[0] <= duration) {
                     if (movesX[movesX.length - 1] - movesX[0] >= treshold || movesX[0] - movesX[movesX.length - 1] >= treshold) {
-                        self.dislikeCat();
+                        if (movesX[0] <= 100) {
+                            self.showSidebar();
+                        } else {
+                            self.dislikeCat();
+                        }
                     }
                 }
             });
@@ -230,14 +244,20 @@
             });
         },
         showSidebar: function () {
+            var self = this;
             this.sidebar.animate({
-                left: "+=150"
-            }, 750);
+                'margin-left': "0"
+            }, 300, function () {
+                self.isSidebarOpen = true;
+            });
         },
         hideSidebar: function () {
-            this.sidebar.animate({
-                left: "-=150"
-            }, 750);
+            if (this.isSidebarOpen) {
+                this.isSidebarOpen = false;
+                this.sidebar.animate({
+                    'margin-left': "-150"
+                }, 300);
+            }
         },
         handleSidebar: function (event) {
             switch (event.target.dataset.menuSection) {
