@@ -45,7 +45,6 @@
             document.querySelector(".catinder-clear-hated").addEventListener("touchstart", this.clearHated.bind(this));
             document.querySelector(".burger-button").addEventListener("touchstart", this.showSidebar.bind(this));
             document.querySelector(".sidebar-list").addEventListener("touchstart", this.handleSidebar.bind(this));
-            document.querySelector(".refresh-button").addEventListener("touchstart", this.getCats.bind(this));
             document.addEventListener("offline", this.changeConnectionStatus.bind(this));
             document.addEventListener("online", this.changeConnectionStatus.bind(this));
             document.addEventListener("touchstart", this.hideSidebar.bind(this));
