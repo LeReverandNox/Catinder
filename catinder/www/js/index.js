@@ -18,13 +18,14 @@
             enabled: false,
             coords: {}
         },
-
+        sidebar: null,
         initialize: function () {
             this.catinderProfil = document.querySelector(".catinder-profil");
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
             this.catinderInfosAge = document.querySelector(".catinder-infos-age");
             this.catinderFavorisList = document.querySelector(".catinder-favoris-list");
+            this.sidebar = $('.sidebar');
 
             this.loadFromStorage();
             this.enableGeoloc();
@@ -206,6 +207,17 @@
                     self.catinderFavorisList.appendChild(li);
                 };
             });
+        },
+        showSidebar: function () {
+            this.sidebar.animate({
+                left: "+=150"
+            }, 750);
+        },
+        hideSidebar: function () {
+            this.sidebar.animate({
+                left: "-=150"
+            }, 750);
+        },
         }
     };
     app.initialize();
