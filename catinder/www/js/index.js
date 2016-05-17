@@ -179,6 +179,11 @@
         saveToStorage: function () {
             localStorage.setItem("catinder-loved", JSON.stringify(this.catsLoved));
             localStorage.setItem("catinder-hated", JSON.stringify(this.catsHated));
+        },
+        clearLoved: function () {
+            this.catsLoved = [];
+            this.saveToStorage();
+        },
         }
     };
     app.initialize();
