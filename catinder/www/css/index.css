@@ -192,3 +192,7 @@ ul {
     width: 50px;
     margin: 0 auto;
 }
+
+html {
+    height: 100%;
+}
