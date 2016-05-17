@@ -21,6 +21,7 @@
         sidebar: null,
         mainSection: null,
         favorisSection: null,
+        isOnline: true,
         initialize: function () {
             this.catinderProfil = document.querySelector(".catinder-profil");
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
@@ -43,6 +44,10 @@
             document.querySelector(".catinder-clear-hated").addEventListener("touchstart", this.clearHated.bind(this));
             document.querySelector(".burger-button").addEventListener("touchstart", this.showSidebar.bind(this));
             document.querySelector(".sidebar-list").addEventListener("touchstart", this.handleSidebar.bind(this));
+            document.querySelector(".refresh-button").addEventListener("touchstart", this.getCats.bind(this));
+            document.addEventListener("offline", this.changeConnectionStatus.bind(this));
+            document.addEventListener("online", this.changeConnectionStatus.bind(this));
+
             this.startCatSwipe();
             this.startCatDoubleTap();
         },
@@ -53,12 +58,16 @@
             if (this.geoloc.enabled) {
                 url = url + "?position=" + this.geoloc.coordinates.lat + "," + this.geoloc.coordinates.long;
             }
-            $.ajax({
-                url: url
-            }).done(function (data) {
-                var cats = JSON.parse(data).results;
-                self.proceedCats(cats);
-            });
+            if (this.isOnline) {
+                $.ajax({
+                    url: url
+                }).done(function (data) {
+                    var cats = JSON.parse(data).results;
+                    self.proceedCats(cats);
+                });
+            } else {
+                this.displayNetworkError();
+            }
         },
         proceedCats: function (cats) {
             var self = this;
@@ -109,21 +118,27 @@
             return true;
         },
         likeCat: function () {
-            if (this.loading === false) {
+            if (this.loading === false && this.currentCat !== null) {
                 this.loading = true;
                 this.catinderPictureHolder.children[0].className += " liked";
                 this.catsLoved.push(this.currentCat);
+                this.currentCat = null;
                 this.saveToStorage();
                 this.prepareOneCat();
+            } else {
+                this.displayNetworkError();
             }
         },
         dislikeCat: function () {
-            if (this.loading === false) {
+            if (this.loading === false && this.currentCat !== null) {
                 this.loading = true;
                 this.catinderPictureHolder.children[0].className += " disliked";
                 this.catsHated.push(this.currentCat);
+                this.currentCat = null;
                 this.saveToStorage();
                 this.prepareOneCat();
+            } else {
+                this.displayNetworkError();
             }
         },
         enableGeoloc: function () {
@@ -248,6 +263,21 @@
                 this.mainSection.hide();
                 break;
             }
+        },
+        changeConnectionStatus: function (event) {
+            switch (event.type) {
+            case "offline":
+                this.isOnline = false;
+                this.displayNetworkError();
+                break;
+            case "online":
+                this.isOnline = true;
+                this.getCats();
+                break;
+            }
+        },
+        displayNetworkError: function () {
+            alert('Votre appareil est hors-ligne, veuillez vérifier votre connexion');
         }
     };
     app.initialize();
