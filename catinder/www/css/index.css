@@ -186,3 +186,9 @@ h1 {
 ul {
     list-style-type: none;
 }
+.refresh-button {
+    padding: 10px;
+    background-color: lightblue;
+    width: 50px;
+    margin: 0 auto;
+}
