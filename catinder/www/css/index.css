@@ -105,13 +105,13 @@ h1 {
 }
 .catinder-like {
     background-color: green;
-    width: 64px;
-    height: 64px;
+    width: 100px;
+    height: 100px;
 }
 .catinder-dislike {
     background-color: red;
-    width: 64px;
-    height: 64px;
+    width: 100px;
+    height: 100px;
 }
 .catinder-picture-img {
     width: 300px;
@@ -133,4 +133,29 @@ h1 {
 }
 .catinder-infos-holder, .catinder-buttons {
     text-align: center;
+}
+
+.catinder-favoris, .catinder-home {
+    display: inline-block;
+    vertical-align: top;
+}
+.catinder-favoris {
+    width: 300px;
+}
+.catinder-favoris-li img {
+    width: 50px;
+}
+.catinder-favoris-buttons {
+    text-align: center;
+}
+.catinder-favoris-buttons div {
+    display: inline-block;
+    width: 100px;
+    height: 100px;
+}
+.catinder-clear-loved {
+    background-color: red;
+}
+.catinder-clear-hated {
+    background-color: red;
 }
