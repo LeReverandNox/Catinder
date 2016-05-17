@@ -136,11 +136,11 @@ h1 {
 }
 
 .catinder-favoris, .catinder-home {
-    display: inline-block;
-    vertical-align: top;
+    /*display: inline-block;*/
+    /*vertical-align: top;*/
 }
 .catinder-favoris {
-    width: 300px;
+    display: none;
 }
 .catinder-favoris-li img {
     width: 50px;
@@ -158,4 +158,25 @@ h1 {
 }
 .catinder-clear-hated {
     background-color: red;
+}
+
+.header-wrapper {
+    height: 100px;
+    background-color: pink;
+}
+
+.burger-button {
+    background-image: url('http://romainlebreton.github.io/ProgWeb-HTMLCSS/assets/burger.png');
+    width: 88px;
+    height: 88px;
+    position: absolute;
+}
+
+.sidebar {
+    position: absolute;
+    background-color: red;
+    height: 100%;
+    width: 150px;
+    z-index: 2;
+    margin-left: -150px;
 }
