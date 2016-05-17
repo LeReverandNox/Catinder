@@ -11,6 +11,7 @@
         catinderPictureHolder: null,
         catinderInfosName: null,
         catinderInfosAge: null,
+        catinderFavorisList: null,
         loading: false,
         currentCat: null,
         geoloc: {
@@ -23,6 +24,7 @@
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
             this.catinderInfosAge = document.querySelector(".catinder-infos-age");
+            this.catinderFavorisList = document.querySelector(".catinder-favoris-list");
 
             this.loadFromStorage();
             this.enableGeoloc();
@@ -190,6 +192,20 @@
             this.catsHated = [];
             this.saveToStorage();
         },
+        updateFavorisList: function () {
+            var self = this;
+            this.catinderFavorisList.innerHTML = "";
+            this.catsLoved.forEach(function (cat) {
+                var li = document.createElement("li");
+                li.className = "catinder-favoris-li";
+                var img = new Image();
+                img.src = cat.picUrl;
+                img.onload = function () {
+                    li.appendChild(img);
+                    li.appendChild(document.createTextNode(cat.name));
+                    self.catinderFavorisList.appendChild(li);
+                };
+            });
         }
     };
     app.initialize();
