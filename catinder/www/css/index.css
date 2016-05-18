@@ -22,32 +22,21 @@
 
 h2 {
     margin: 0;
+    font-weight: normal;
+    font-size: 1em;
 }
 body {
     -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
     -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
     -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
     background-color:#E4E4E4;
-    /*background-color: #F6F6F2;*/
-/*    background-image:linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
-    background-image:-webkit-gradient(
-        linear,
-        left top,
-        left bottom,
-        color-stop(0, #A7A7A7),
-        color-stop(0.51, #E4E4E4)
-    );*/
     background-attachment:fixed;
     font-family:'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
-    font-size:12px;
     height:100%;
     margin:0px;
     padding:0px;
-    /*text-transform:uppercase;*/
     width:100%;
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 /* Portrait layout (default) */
@@ -143,6 +132,7 @@ body {
 }
 .catinder-infos-name {
     text-transform: capitalize;
+    font-size: 1.4em;
 }
 .catinder-infos-age {
     padding-top: 10px;
@@ -150,23 +140,11 @@ body {
 .catinder-buttons {
     margin-top: 5px;
 }
-.catinder-favoris, .catinder-home {
-    /*display: inline-block;*/
-    /*vertical-align: top;*/
-}
 .catinder-favoris {
     display: none;
 }
-.catinder-favoris-li img {
-    width: 150px;
-}
 .catinder-favoris-buttons {
     text-align: center;
-}
-.catinder-favoris-buttons div {
-    display: inline-block;
-    width: 100px;
-    height: 100px;
 }
 .catinder-clear-loved {
     background-color: red;
@@ -205,8 +183,12 @@ body {
 .sidebar-list li {
     font-size: 2em;
     color: #FFFFFF;
-    margin-bottom: 15px;
-    text-decoration: underline;
+    padding: 25px;
+    text-align: center;
+}
+.sidebar-list {
+    padding: 0;
+    margin: 0;
 }
 .sidebar-li-menu {
 
@@ -229,7 +211,7 @@ html {
 }
 
 h1, .sidebar h2 {
-    font-size: 3em;
+    font-size: 2.5em;
     font-weight:normal;
     margin:0px;
     overflow:visible;
@@ -281,4 +263,46 @@ h1, .sidebar h2 {
     transform: scale(1);
     /*opacity: 0;*/
     transition: transform 0.1s;
+}
+
+.catinder-favoris-li p, .catinder-favoris-li img {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.catinder-favoris-li p {
+    padding-left: 30px;
+    text-transform: capitalize;
+    font-size: 1.2em;
+}
+.catinder-favoris-li img {
+    width: 100px;
+    border: 1px solid white;
+}
+.catinder-favoris-list {
+    padding: 0px 40px;
+}
+.catinder-favoris-li {
+    border-bottom: 2px solid #FF4566;
+    padding-bottom: 10px;
+    padding-left: 20px;
+    margin-top: 10px;
+}
+.catinder-favoris-li:last-child {
+    border: none;
+}
+
+.catinder-main {
+    overflow: hidden;
+}
+
+.catinder-clear-lists {
+width: 100px; */
+    display: inline-block;
+    margin: 20px auto;
+    padding: 10px 25px;
+    background-color: #FF4566;
+    color: white;
+    font-size: 1.5em;
+    border-radius: 2px;
 }
