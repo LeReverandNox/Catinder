@@ -245,9 +245,9 @@ h1, .sidebar h2 {
 }
 
 .grow {
-    transform: scale(1.05);
+    transform: scale(3);
     opacity: 0;
-    transition: transform 0.3s, opacity 1s;
+    transition: transform 0.5s, opacity 0.5s;
 }
 
 .catinder-picture-holder-holder {
@@ -266,6 +266,18 @@ h1, .sidebar h2 {
 }
 
 .fadeout {
+    transform: scale(0.3);
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+.button-grow {
+    transform: scale(1.10);
+    /*opacity: 0;*/
+    transition: transform 0.1s;
+}
+.button-disgrow {
+    transform: scale(1);
+    /*opacity: 0;*/
+    transition: transform 0.1s;
 }
