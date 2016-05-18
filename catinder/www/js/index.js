@@ -206,7 +206,7 @@
         startCatSwipe: function () {
             var movesX = [];
             var delays = [];
-            var treshold = 150;
+            var treshold = 125;
             var duration = 1000;
             var self = this;
 
@@ -226,7 +226,7 @@
                 if (self.isSidebarOpen === false) {
                     if (delays[1] - delays[0] <= duration) {
                         if (movesX[movesX.length - 1] - movesX[0] >= treshold || movesX[0] - movesX[movesX.length - 1] >= treshold) {
-                            if (movesX[0] <= 100) {
+                            if (movesX[0] <= 80) {
                                 self.showSidebar();
                             } else {
                                 self.dislikeCat();
@@ -284,7 +284,7 @@
             var self = this;
             if (this.isSidebarOpen) {
                 this.sidebar.animate({
-                    'margin-left': "-156"
+                    'margin-left': "-206"
                 }, 300, function () {
                     self.isSidebarOpen = false;
                 });

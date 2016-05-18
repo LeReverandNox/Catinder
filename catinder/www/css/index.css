@@ -192,9 +192,9 @@ body {
     position: absolute;
     background-color: #FF4566;
     height: 100%;
-    width: 150px;
+    width: 200px;
     z-index: 2;
-    margin-left: -156px;
+    margin-left: -206px;
     -moz-box-shadow: 5px 0px 5px 0px rgba(101, 101, 101, 0.5);
     -webkit-box-shadow: 5px 0px 5px 0px rgba(101, 101, 101, 0.5);
     -o-box-shadow: 5px 0px 5px 0px rgba(101, 101, 101, 0.5);
