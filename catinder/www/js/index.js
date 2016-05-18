@@ -275,7 +275,9 @@
                 img.src = cat.picUrl;
                 img.onload = function () {
                     li.appendChild(img);
-                    li.appendChild(document.createTextNode(cat.name));
+                    var p = document.createElement("p");
+                    p.innerHTML = cat.name;
+                    li.appendChild(p);
                     self.catinderFavorisList.appendChild(li);
                 };
             });
