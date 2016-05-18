@@ -23,8 +23,8 @@
         favorisSection: null,
         isOnline: true,
         isSidebarOpen: false,
+        loader: null,
         initialize: function () {
-            this.catinderProfil = document.querySelector(".catinder-profil");
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
             this.catinderInfosAge = document.querySelector(".catinder-infos-age");
@@ -32,11 +32,13 @@
             this.sidebar = $('.sidebar');
             this.mainSection = $('.catinder-home');
             this.favorisSection = $('.catinder-favoris');
+            this.catinderProfil = $('.catinder-profil');
+            this.loader = $('.loader');
 
             this.loadFromStorage();
             this.enableGeoloc();
             this.bindEvents();
-            this.getCats();
+            // this.getCats();
         },
         bindEvents: function () {
             document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
@@ -108,8 +110,10 @@
                 self.catinderPictureHolder.appendChild(img);
                 self.catinderInfosName.innerHTML = cat.name;
                 self.catinderInfosAge.innerHTML = cat.age + " ans";
-
+                self.catinderProfil.css({opacity: 100});
+                self.catinderProfil.removeClass("grow");
                 self.loading = false;
+                self.switchLoader();
             };
         },
         checkRemainingCats: function () {
@@ -120,28 +124,37 @@
             return true;
         },
         likeCat: function () {
-            if (this.loading === false) {
+            var self = this;
+            if (this.loading === false && this.isSidebarOpen === false) {
                 if (this.currentCat !== null) {
                     this.loading = true;
-                    this.catinderPictureHolder.children[0].className += " liked";
+                    this.switchLoader();
+                    // this.catinderPictureHolder.children[0].className += " liked";
                     this.catsLoved.push(this.currentCat);
                     this.currentCat = null;
                     this.saveToStorage();
-                    this.prepareOneCat();
+                    // this.catinderProfil.fadeTo(500, 0, function () {
+                        self.prepareOneCat();
+                    // });
+                    // this.catinderProfil.addClass("grow");
                 } else {
                     this.displayNetworkError();
                 }
             }
         },
         dislikeCat: function () {
-            if (this.loading === false) {
+            var self = this;
+            if (this.loading === false && this.isSidebarOpen === false) {
                 if (this.currentCat !== null) {
                     this.loading = true;
-                    this.catinderPictureHolder.children[0].className += " disliked";
+                    this.switchLoader();
+                    // this.catinderPictureHolder.children[0].className += " disliked";
                     this.catsHated.push(this.currentCat);
                     this.currentCat = null;
                     this.saveToStorage();
-                    this.prepareOneCat();
+                    this.catinderProfil.fadeTo(500, 0, function () {
+                        self.prepareOneCat();
+                    });
                 } else {
                     this.displayNetworkError();
                 }
@@ -194,13 +207,14 @@
             // this.catinderPictureHolder.addEventListener("touchend", function (e) {
             document.querySelector('body').addEventListener("touchend", function (e) {
                 delays.push(e.timeStamp);
-
-                if (delays[1] - delays[0] <= duration) {
-                    if (movesX[movesX.length - 1] - movesX[0] >= treshold || movesX[0] - movesX[movesX.length - 1] >= treshold) {
-                        if (movesX[0] <= 100) {
-                            self.showSidebar();
-                        } else {
-                            self.dislikeCat();
+                if (self.isSidebarOpen === false) {
+                    if (delays[1] - delays[0] <= duration) {
+                        if (movesX[movesX.length - 1] - movesX[0] >= treshold || movesX[0] - movesX[movesX.length - 1] >= treshold) {
+                            if (movesX[0] <= 100) {
+                                self.showSidebar();
+                            } else {
+                                self.dislikeCat();
+                            }
                         }
                     }
                 }
@@ -251,11 +265,13 @@
             });
         },
         hideSidebar: function () {
+            var self = this;
             if (this.isSidebarOpen) {
-                this.isSidebarOpen = false;
                 this.sidebar.animate({
-                    'margin-left': "-150"
-                }, 300);
+                    'margin-left': "-156"
+                }, 300, function () {
+                    self.isSidebarOpen = false;
+                });
             }
         },
         handleSidebar: function (event) {
@@ -297,6 +313,13 @@
         },
         displayNetworkError: function () {
             alert('Votre appareil est hors-ligne, veuillez vérifier votre connexion');
+        },
+        switchLoader: function () {
+            if (this.loading) {
+                this.loader.show();
+            } else {
+                this.loader.hide();
+            }
         }
     };
     app.initialize();
