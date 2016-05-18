@@ -124,7 +124,7 @@ body {
     width: 300px;
     height: 300px;
     margin: 0 auto;
-    padding: 20px 20px 40px 20px;
+    padding: 20px 20px 20px 20px;
     background-color: #FFFFFF;
 }
 .catinder-infos-holder, .catinder-buttons {
@@ -137,7 +137,7 @@ body {
     width: 300px;
     height: 60px;
     margin: 0 auto;
-    padding: 0px 20px 10px 20px;
+    padding: 0px 20px 0px 20px;
     background-color: #FFFFFF;
 }
 .catinder-infos-name {
@@ -147,7 +147,7 @@ body {
     padding-top: 10px;
 }
 .catinder-buttons {
-    margin-top: 20px;
+    margin-top: 5px;
 }
 .catinder-favoris, .catinder-home {
     /*display: inline-block;*/
@@ -241,14 +241,13 @@ h1, .sidebar h2 {
 .catinder-profil {
     width: 340px;
     margin: 0 auto;
-    margin-top: 50px;
-}
-.catinder-profil:hover {
-    transition: opacity 2s ease-in;
+    margin-top: 25px;
 }
 
 .grow {
-    transform: scale(1.25);
+    transform: scale(1.05);
+    opacity: 0;
+    transition: transform 0.3s, opacity 1s;
 }
 
 .catinder-picture-holder-holder {
@@ -263,4 +262,10 @@ h1, .sidebar h2 {
     right: 0;
     top: 220px;
     display: none;
+    z-index: 3;
+}
+
+.fadeout {
+    opacity: 0;
+    transition: opacity 0.3s;
 }
