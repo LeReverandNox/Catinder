@@ -26,6 +26,7 @@
         loader: null,
         likeButton: null,
         dislikeButton: null,
+        resetButton: null,
         initialize: function () {
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
@@ -38,6 +39,7 @@
             this.loader = $('.loader');
             this.likeButton = $('.catinder-like');
             this.dislikeButton = $('.catinder-dislike');
+            this.resetButton = $('.catinder-clear-lists');
 
             this.loadFromStorage();
             this.enableGeoloc();
@@ -49,8 +51,8 @@
             document.querySelector(".catinder-like").addEventListener("touchend", this.disgrowLikeButton.bind(this));
             document.querySelector(".catinder-dislike").addEventListener("touchstart", this.growDislikeButton.bind(this));
             document.querySelector(".catinder-dislike").addEventListener("touchend", this.disgrowDislikeButton.bind(this));
-            document.querySelector(".catinder-clear-loved").addEventListener("touchstart", this.clearLoved.bind(this));
-            document.querySelector(".catinder-clear-hated").addEventListener("touchstart", this.clearHated.bind(this));
+            document.querySelector(".catinder-clear-lists").addEventListener("touchstart", this.growResetButton.bind(this));
+            document.querySelector(".catinder-clear-lists").addEventListener("touchend", this.disgrowResetButton.bind(this));
             document.querySelector(".burger-button").addEventListener("touchstart", this.showSidebar.bind(this));
             document.querySelector(".sidebar-list").addEventListener("touchstart", this.handleSidebar.bind(this));
             document.addEventListener("offline", this.changeConnectionStatus.bind(this));
@@ -187,6 +189,15 @@
             this.dislikeButton.removeClass('button-grow');
             this.dislikeButton.addClass('button-disgrow');
         },
+        growResetButton: function () {
+            this.resetButton.removeClass('button-disgrow');
+            this.resetButton.addClass('button-grow');
+            this.clearLists();
+        },
+        disgrowResetButton: function () {
+            this.resetButton.removeClass('button-grow');
+            this.resetButton.addClass('button-disgrow');
+        },
         enableGeoloc: function () {
             var self = this;
             navigator.geolocation.getCurrentPosition(function (data) {
@@ -214,7 +225,7 @@
         startCatSwipe: function () {
             var movesX = [];
             var delays = [];
-            var treshold = 125;
+            var treshold = 100;
             var duration = 1000;
             var self = this;
 
@@ -255,6 +266,10 @@
         saveToStorage: function () {
             localStorage.setItem("catinder-loved", JSON.stringify(this.catsLoved));
             localStorage.setItem("catinder-hated", JSON.stringify(this.catsHated));
+        },
+        clearLists: function () {
+            this.clearHated();
+            this.clearLoved();
         },
         clearLoved: function () {
             this.catsLoved = [];
