@@ -27,6 +27,7 @@
         likeButton: null,
         dislikeButton: null,
         resetButton: null,
+        body: null,
         initialize: function () {
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
@@ -40,6 +41,7 @@
             this.likeButton = $('.catinder-like');
             this.dislikeButton = $('.catinder-dislike');
             this.resetButton = $('.catinder-clear-lists');
+            this.body = document.querySelector('body');
 
             this.loadFromStorage();
             this.enableGeoloc();
@@ -142,8 +144,6 @@
                     this.saveToStorage();
                     this.catinderProfil.addClass("grow");
                     this.catinderProfil.one("transitionend", function () {
-                        console.log("ON A LIKE");
-                        // self.disgrowLikeButton();
                         self.prepareOneCat();
                     });
                 } else {
@@ -162,8 +162,6 @@
                     this.saveToStorage();
                     this.catinderProfil.addClass("fadeout");
                     this.catinderProfil.one("transitionend", function () {
-                        console.log("ON A DISLIKE");
-                        // self.disgrowDislikeButton();
                         self.prepareOneCat();
                     });
                 } else {
@@ -229,18 +227,21 @@
             var duration = 1000;
             var self = this;
 
-            document.querySelector('body').addEventListener("touchstart", function (e) {
+            var movesPush = function (e) {
+                movesX.push(e.touches[0].clientX);
+            };
+
+            this.body.addEventListener("touchstart", function (e) {
                 movesX = [];
                 delays = [];
 
                 delays.push(e.timeStamp);
 
-                document.querySelector('body').addEventListener("touchmove", function (e) {
-                    movesX.push(e.touches[0].clientX);
-                });
+                self.body.addEventListener("touchmove", movesPush);
             });
 
-            document.querySelector('body').addEventListener("touchend", function (e) {
+            this.body.addEventListener("touchend", function (e) {
+                self.body.removeEventListener("touchmove", movesPush);
                 delays.push(e.timeStamp);
                 if (self.isSidebarOpen === false) {
                     if (delays[1] - delays[0] <= duration) {
