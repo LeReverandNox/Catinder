@@ -38,7 +38,6 @@
             this.loadFromStorage();
             this.enableGeoloc();
             this.bindEvents();
-            // this.getCats();
         },
         bindEvents: function () {
             document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
@@ -129,7 +128,6 @@
                 if (this.currentCat !== null) {
                     this.loading = true;
                     this.switchLoader();
-                    // this.catinderPictureHolder.children[0].className += " liked";
                     this.catsLoved.push(this.currentCat);
                     this.currentCat = null;
                     this.saveToStorage();
@@ -148,7 +146,6 @@
                 if (this.currentCat !== null) {
                     this.loading = true;
                     this.switchLoader();
-                    // this.catinderPictureHolder.children[0].className += " disliked";
                     this.catsHated.push(this.currentCat);
                     this.currentCat = null;
                     this.saveToStorage();
@@ -191,20 +188,17 @@
             var duration = 1000;
             var self = this;
 
-            // this.catinderPictureHolder.addEventListener("touchstart", function (e) {
             document.querySelector('body').addEventListener("touchstart", function (e) {
                 movesX = [];
                 delays = [];
 
                 delays.push(e.timeStamp);
 
-                // self.catinderPictureHolder.addEventListener("touchmove", function (e) {
                 document.querySelector('body').addEventListener("touchmove", function (e) {
                     movesX.push(e.touches[0].clientX);
                 });
             });
 
-            // this.catinderPictureHolder.addEventListener("touchend", function (e) {
             document.querySelector('body').addEventListener("touchend", function (e) {
                 delays.push(e.timeStamp);
                 if (self.isSidebarOpen === false) {
