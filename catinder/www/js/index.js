@@ -45,9 +45,9 @@
             this.switchLoader();
         },
         bindEvents: function () {
-            document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
+            document.querySelector(".catinder-like").addEventListener("touchstart", this.growLikeButton.bind(this));
             document.querySelector(".catinder-like").addEventListener("touchend", this.disgrowLikeButton.bind(this));
-            document.querySelector(".catinder-dislike").addEventListener("touchstart", this.dislikeCat.bind(this));
+            document.querySelector(".catinder-dislike").addEventListener("touchstart", this.growDislikeButton.bind(this));
             document.querySelector(".catinder-dislike").addEventListener("touchend", this.disgrowDislikeButton.bind(this));
             document.querySelector(".catinder-clear-loved").addEventListener("touchstart", this.clearLoved.bind(this));
             document.querySelector(".catinder-clear-hated").addEventListener("touchstart", this.clearHated.bind(this));
@@ -131,8 +131,6 @@
         },
         likeCat: function () {
             var self = this;
-            this.likeButton.removeClass('button-disgrow');
-            this.likeButton.addClass('button-grow');
             if (this.loading === false && this.isSidebarOpen === false) {
                 if (this.currentCat !== null) {
                     this.loading = true;
@@ -143,6 +141,7 @@
                     this.catinderProfil.addClass("grow");
                     this.catinderProfil.one("transitionend", function () {
                         console.log("ON A LIKE");
+                        // self.disgrowLikeButton();
                         self.prepareOneCat();
                     });
                 } else {
@@ -152,8 +151,6 @@
         },
         dislikeCat: function () {
             var self = this;
-            this.dislikeButton.removeClass('button-disgrow');
-            this.dislikeButton.addClass('button-grow');
             if (this.loading === false && this.isSidebarOpen === false) {
                 if (this.currentCat !== null) {
                     this.loading = true;
@@ -164,12 +161,23 @@
                     this.catinderProfil.addClass("fadeout");
                     this.catinderProfil.one("transitionend", function () {
                         console.log("ON A DISLIKE");
+                        // self.disgrowDislikeButton();
                         self.prepareOneCat();
                     });
                 } else {
                     this.displayNetworkError();
                 }
             }
+        },
+        growLikeButton: function () {
+            this.likeButton.removeClass('button-disgrow');
+            this.likeButton.addClass('button-grow');
+            this.likeCat();
+        },
+        growDislikeButton: function () {
+            this.dislikeButton.removeClass('button-disgrow');
+            this.dislikeButton.addClass('button-grow');
+            this.dislikeCat();
         },
         disgrowLikeButton: function () {
             this.likeButton.removeClass('button-grow');
