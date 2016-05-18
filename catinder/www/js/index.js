@@ -29,6 +29,13 @@
         resetButton: null,
         body: null,
         initialize: function () {
+            this.populateAttributes();
+            this.loadFromStorage();
+            this.enableGeoloc();
+            this.bindEvents();
+            this.switchLoader();
+        },
+        populateAttributes: function () {
             this.catinderPictureHolder = document.querySelector(".catinder-picture-holder");
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
             this.catinderInfosAge = document.querySelector(".catinder-infos-age");
@@ -42,11 +49,6 @@
             this.dislikeButton = $('.catinder-dislike');
             this.resetButton = $('.catinder-clear-lists');
             this.body = document.querySelector('body');
-
-            this.loadFromStorage();
-            this.enableGeoloc();
-            this.bindEvents();
-            this.switchLoader();
         },
         bindEvents: function () {
             document.querySelector(".catinder-like").addEventListener("touchstart", this.growLikeButton.bind(this));
