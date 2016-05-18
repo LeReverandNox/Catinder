@@ -23,6 +23,7 @@
 
     <body>
         <div class="sidebar">
+            <h2>MENU</h2>
             <ul class="sidebar-list">
                 <li data-menu-section="home">Home</li>
                 <li data-menu-section="favoris">Favoris</li>
@@ -32,7 +33,9 @@
             <div class="header-wrapper">
                 <header class="main-header">
                     <div class="burger-button"></div>
-                    <h1>Catinder</h1>
+                    <div class="header-title">
+                        <h1>Cat'inder</h1>
+                    </div>
                 </header>
             </div>
             <div class="catinder-main">
@@ -47,19 +50,22 @@
                     </div>
                 </div>
                 <div class="catinder-home">
+                    <img class="loader" src="img/loader.gif">
                     <div class="catinder-profil">
                         <div class="catinder-picture-holder-holder">
                             <div class="catinder-picture-holder"></div>
                         </div>
                         <div class="catinder-infos-holder">
-                            <h2 class="catinder-infos-name"></h2>
-                            <p class="catinder-infos-age"></p>
+                            <div class="catinder-infos">
+                                <h2 class="catinder-infos-name"></h2>
+                                <p class="catinder-infos-age"></p>
+                            </div>
                         </div>
                     </div>
 
                     <div class="catinder-buttons">
-                        <div class="catinder-dislike">HATE</div>
-                        <div class="catinder-like">LOVE</div>
+                        <div class="catinder-dislike"></div>
+                        <div class="catinder-like"></div>
                     </div>
                 </div>
             </div>
