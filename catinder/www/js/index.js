@@ -12,7 +12,7 @@
         catinderInfosName: null,
         catinderInfosAge: null,
         catinderFavorisList: null,
-        loading: false,
+        loading: true,
         currentCat: null,
         geoloc: {
             enabled: false,
@@ -38,6 +38,7 @@
             this.loadFromStorage();
             this.enableGeoloc();
             this.bindEvents();
+            this.switchLoader();
         },
         bindEvents: function () {
             document.querySelector(".catinder-like").addEventListener("touchstart", this.likeCat.bind(this));
@@ -109,8 +110,8 @@
                 self.catinderPictureHolder.appendChild(img);
                 self.catinderInfosName.innerHTML = cat.name;
                 self.catinderInfosAge.innerHTML = cat.age + " ans";
-                self.catinderProfil.css({opacity: 100});
                 self.catinderProfil.removeClass("grow");
+                self.catinderProfil.removeClass("fadeout");
                 self.loading = false;
                 self.switchLoader();
             };
@@ -131,10 +132,11 @@
                     this.catsLoved.push(this.currentCat);
                     this.currentCat = null;
                     this.saveToStorage();
-                    // this.catinderProfil.fadeTo(500, 0, function () {
+                    this.catinderProfil.addClass("grow");
+                    this.catinderProfil.one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function () {
+                        console.log("ON A LIKE");
                         self.prepareOneCat();
-                    // });
-                    // this.catinderProfil.addClass("grow");
+                    });
                 } else {
                     this.displayNetworkError();
                 }
@@ -149,7 +151,9 @@
                     this.catsHated.push(this.currentCat);
                     this.currentCat = null;
                     this.saveToStorage();
-                    this.catinderProfil.fadeTo(500, 0, function () {
+                    this.catinderProfil.addClass("fadeout");
+                    this.catinderProfil.one("webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend", function () {
+                        console.log("ON A DISLIKE");
                         self.prepareOneCat();
                     });
                 } else {
