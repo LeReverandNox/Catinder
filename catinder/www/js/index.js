@@ -258,11 +258,19 @@
                                 self.showSidebar();
                             } else if (startElement.tagName === 'LI' && startElement.getAttribute('data-sha1')) {
                                 // Swipe pour delete un favori depuis sa li
-                                self.removeCatFromLoved(startElement.getAttribute('data-sha1'), startElement);
+                                if (movesX[movesX.length - 1] - movesX[0] >= treshold) {
+                                    self.removeCatFromLoved(startElement.getAttribute('data-sha1'), startElement, "right");
+                                } else {
+                                    self.removeCatFromLoved(startElement.getAttribute('data-sha1'), startElement, "left");
+                                }
                             } else if ($(startElement).parents()[0].getAttribute('data-sha1')) {
                                 // Swipe pour delete un favori depuis le parent de l'element
                                 var parent = $(startElement).parents()[0];
-                                self.removeCatFromLoved(parent.getAttribute('data-sha1'), parent);
+                                if (movesX[movesX.length - 1] - movesX[0] >= treshold) {
+                                    self.removeCatFromLoved(parent.getAttribute('data-sha1'), parent, "right");
+                                } else {
+                                    self.removeCatFromLoved(parent.getAttribute('data-sha1'), parent, "left");
+                                }
                             } else {
                                 // Swipe pour dislike
                                 self.dislikeCat();
@@ -380,13 +388,17 @@
                 this.loader.hide();
             }
         },
-        removeCatFromLoved: function (sha1, li) {
+        removeCatFromLoved: function (sha1, li, direction) {
             var catToRemove = this.catsLoved.filter(function (cat) {
                 return cat.sha1 === sha1;
             });
             var index = this.catsLoved.indexOf(catToRemove[0]);
             this.catsLoved.splice(index, 1);
-            $(li).addClass("ease-right");
+            if (direction === "left") {
+                $(li).addClass("ease-left");
+            } else {
+                $(li).addClass("ease-right");
+            }
             $(li).one("transitionend", function () {
                 $(li).remove();
             });

@@ -331,3 +331,9 @@ width: 100px; */
     transition: margin-left 0.5s, opacity 0.5s;
     width: 335px;
 }
+.ease-left {
+    margin-left : -200px;
+    opacity: 0;
+    transition: margin-left 0.5s, opacity 0.5s;
+    width: 335px;
+}
