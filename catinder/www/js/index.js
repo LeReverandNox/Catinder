@@ -41,7 +41,7 @@
             this.catinderInfosName = document.querySelector(".catinder-infos-name");
             this.catinderInfosAge = document.querySelector(".catinder-infos-age");
             this.catinderFavorisList = document.querySelector(".catinder-favoris-list");
-            this.sidebar = $('.sidebar');
+            this.sidebar = $('.sidebar-holder');
             this.mainSection = $('.catinder-home');
             this.favorisSection = $('.catinder-favoris');
             this.catinderProfil = $('.catinder-profil');
@@ -316,7 +316,7 @@
             var self = this;
             if (this.isSidebarOpen) {
                 this.sidebar.animate({
-                    'margin-left': "-206"
+                    'margin-left': "-204"
                 }, 300, function () {
                     self.isSidebarOpen = false;
                 });
