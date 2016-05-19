@@ -121,7 +121,7 @@ body {
     text-align: center;
 }
 .catinder-infos-holder {
-    height: 70px;
+    height: 60px;
 }
 .catinder-infos {
     width: 300px;
@@ -138,7 +138,7 @@ body {
     padding-top: 10px;
 }
 .catinder-buttons {
-    margin-top: 5px;
+    margin-top: 15px;
 }
 .catinder-favoris {
     display: none;
@@ -230,6 +230,14 @@ h1, .sidebar h2 {
     transform: scale(3);
     opacity: 0;
     transition: transform 0.5s, opacity 0.5s;
+}
+.fade-green {
+    background-color: rgba(39, 226, 148, 0.35);
+    transition:  background-color 0.3s;
+}
+.fade-red {
+    background-color: rgba(255, 92, 48, 0.35);
+    transition:  background-color 0.3s;
 }
 
 .catinder-picture-holder-holder {

@@ -28,6 +28,7 @@
         dislikeButton: null,
         resetButton: null,
         body: null,
+        catinderProfilDivs: null,
         initialize: function () {
             this.populateAttributes();
             this.loadFromStorage();
@@ -49,6 +50,7 @@
             this.dislikeButton = $('.catinder-dislike');
             this.resetButton = $('.catinder-clear-lists');
             this.body = document.querySelector('body');
+            this.catinderProfilDivs = this.catinderProfil.find('div');
         },
         bindEvents: function () {
             document.querySelector(".catinder-like").addEventListener("touchstart", this.growLikeButton.bind(this));
@@ -122,8 +124,8 @@
                 self.catinderPictureHolder.appendChild(img);
                 self.catinderInfosName.innerHTML = cat.name;
                 self.catinderInfosAge.innerHTML = cat.age + " ans";
-                self.catinderProfil.removeClass("grow");
-                self.catinderProfil.removeClass("fadeout");
+                self.catinderProfil.removeClass("grow fadeout");
+                self.catinderProfilDivs.removeClass("fade-green fade-red");
                 self.loading = false;
                 self.switchLoader();
             };
@@ -145,6 +147,7 @@
                     this.currentCat = null;
                     this.saveToStorage();
                     this.catinderProfil.addClass("grow");
+                    this.catinderProfilDivs.addClass('fade-green');
                     this.catinderProfil.one("transitionend", function () {
                         self.prepareOneCat();
                     });
@@ -163,6 +166,7 @@
                     this.currentCat = null;
                     this.saveToStorage();
                     this.catinderProfil.addClass("fadeout");
+                    this.catinderProfilDivs.addClass('fade-red');
                     this.catinderProfil.one("transitionend", function () {
                         self.prepareOneCat();
                     });
