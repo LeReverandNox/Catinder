@@ -232,6 +232,7 @@
             var treshold = 100;
             var duration = 1000;
             var self = this;
+            var startElement = null;
 
             var movesPush = function (e) {
                 movesX.push(e.touches[0].clientX);
@@ -240,7 +241,7 @@
             this.body.addEventListener("touchstart", function (e) {
                 movesX = [];
                 delays = [];
-
+                startElement = e.target;
                 delays.push(e.timeStamp);
 
                 self.body.addEventListener("touchmove", movesPush);
@@ -253,8 +254,17 @@
                     if (delays[1] - delays[0] <= duration) {
                         if (movesX[movesX.length - 1] - movesX[0] >= treshold || movesX[0] - movesX[movesX.length - 1] >= treshold) {
                             if (movesX[0] <= 80) {
+                                // Swipe de sidebar
                                 self.showSidebar();
+                            } else if (startElement.tagName === 'LI' && startElement.getAttribute('data-sha1')) {
+                                // Swipe pour delete un favori depuis sa li
+                                self.removeCatFromLoved(startElement.getAttribute('data-sha1'), startElement);
+                            } else if ($(startElement).parents()[0].getAttribute('data-sha1')) {
+                                // Swipe pour delete un favori depuis le parent de l'element
+                                var parent = $(startElement).parents()[0];
+                                self.removeCatFromLoved(parent.getAttribute('data-sha1'), parent);
                             } else {
+                                // Swipe pour dislike
                                 self.dislikeCat();
                             }
                         }
@@ -293,6 +303,7 @@
             this.catsLoved.forEach(function (cat) {
                 var li = document.createElement("li");
                 li.className = "catinder-favoris-li";
+                li.setAttribute("data-sha1", cat.sha1);
                 var img = new Image();
                 img.src = cat.picUrl;
                 img.onload = function () {
@@ -368,6 +379,17 @@
             } else {
                 this.loader.hide();
             }
+        },
+        removeCatFromLoved: function (sha1, li) {
+            var catToRemove = this.catsLoved.filter(function (cat) {
+                return cat.sha1 === sha1;
+            });
+            var index = this.catsLoved.indexOf(catToRemove[0]);
+            this.catsLoved.splice(index, 1);
+            $(li).addClass("ease-right");
+            $(li).one("transitionend", function () {
+                $(li).remove();
+            });
         }
     };
     app.initialize();

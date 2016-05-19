@@ -324,3 +324,10 @@ width: 100px; */
     font-size: 1.5em;
     border-radius: 2px;
 }
+
+.ease-right {
+    margin-left : 200px;
+    opacity: 0;
+    transition: margin-left 0.5s, opacity 0.5s;
+    width: 335px;
+}
