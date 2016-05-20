@@ -371,3 +371,11 @@ width: 100px; */
     margin-left: -204px;
     transition: margin-left 0.3s;
 }
+
+.konami-a {
+    background-image: url(../img/konami-a.png);
+}
+
+.konami-b {
+    background-image: url(../img/konami-b.png);
+}
