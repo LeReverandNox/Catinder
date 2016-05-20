@@ -242,7 +242,7 @@
         startCatSwipe: function () {
             var movesX = [];
             var delays = [];
-            var treshold = 100;
+            var treshold = 75;
             var duration = 1000;
             var self = this;
             var startElement = null;
