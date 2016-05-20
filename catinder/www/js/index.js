@@ -342,18 +342,18 @@
         },
         showSidebar: function () {
             var self = this;
-            this.sidebar.animate({
-                'margin-left': "0"
-            }, 300, function () {
+            this.sidebar.removeClass("hide-sidebar");
+            this.sidebar.addClass("show-sidebar");
+            this.sidebar.one("transitionend", function () {
                 self.isSidebarOpen = true;
             });
         },
         hideSidebar: function () {
             var self = this;
             if (this.isSidebarOpen) {
-                this.sidebar.animate({
-                    'margin-left': "-204"
-                }, 300, function () {
+                this.sidebar.removeClass("show-sidebar");
+                this.sidebar.addClass("hide-sidebar");
+                this.sidebar.one("transitionend", function () {
                     self.isSidebarOpen = false;
                 });
             }

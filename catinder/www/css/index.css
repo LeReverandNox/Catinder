@@ -361,3 +361,13 @@ width: 100px; */
     background-color: rgba(255, 92, 48, 0.35);
     transition:  background-color 0.5s, opacity 1s;
 }
+
+.show-sidebar {
+    margin-left: 0px;
+    transition: margin-left 0.3s;
+}
+
+.hide-sidebar {
+    margin-left: -204px;
+    transition: margin-left 0.3s;
+}
