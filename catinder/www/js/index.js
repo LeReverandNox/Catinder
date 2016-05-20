@@ -65,7 +65,7 @@
             document.querySelector(".catinder-clear-lists").addEventListener("touchend", this.disgrowResetButton.bind(this));
             document.querySelector(".burger-button").addEventListener("touchstart", this.showSidebar.bind(this));
             document.querySelector(".sidebar-list").addEventListener("touchstart", this.handleSidebar.bind(this));
-            document.querySelector(".title").addEventListener("touchstart", this.disenableKonami.bind(this));
+            document.querySelector(".title").addEventListener("touchstart", this.disableKonami.bind(this));
             document.addEventListener("offline", this.changeConnectionStatus.bind(this));
             document.addEventListener("online", this.changeConnectionStatus.bind(this));
             document.addEventListener("touchstart", this.hideSidebar.bind(this));
@@ -200,9 +200,9 @@
             if (this.likeButton.hasClass("konami-a")) {
                 this.onGoingCode.push("A");
                 this.verifKonami();
+            } else {
+                this.likeCat();
             }
-
-            this.likeCat();
         },
         growDislikeButton: function () {
             this.dislikeButton.removeClass('button-disgrow');
@@ -211,9 +211,9 @@
             if (this.dislikeButton.hasClass("konami-b")) {
                 this.onGoingCode.push("B");
                 this.verifKonami();
+            } else {
+                this.dislikeCat("button");
             }
-
-            this.dislikeCat("button");
         },
         disgrowLikeButton: function () {
             this.likeButton.removeClass('button-grow');
@@ -475,40 +475,44 @@
                 this.disenableKonami();
             }
         },
-        disenableKonami: function () {
+        disableKonami: function () {
+            this.isKonamiEnable = false;
+
+            this.nyanCatMusic.pause();
+            this.nyanCatMusic.currentTime = 0;
+            document.querySelector(".title").innerHTML = "Cat'inder";
+            $(".nyan-cat").remove();
+            this.displayOneCat(this.currentCat);
+        },
+        enableKonami: function () {
             var self = this;
+            this.isKonamiEnable = true;
+
+            // Let the fun BEGINS !
+            this.nyanCatMusic.play();
+            document.querySelector(".title").innerHTML = "Catin'der";
+            $(".catinder-picture-img").attr("src", "img/nyan-cat-pic.jpg").load(function () {
+                self.catinderInfosName.innerHTML = "Nyan Cat";
+                self.catinderInfosAge.innerHTML = "42 ans";
+            });
+            var i;
+            for (i = 0; i < 10; i += 1) {
+                this.spawnNyanCat();
+            }
+        },
+        disenableKonami: function () {
             if (this.isKonamiEnable) {
-                this.isKonamiEnable = false;
-
-                this.nyanCatMusic.pause();
-                this.nyanCatMusic.currentTime = 0;
-                document.querySelector(".title").innerHTML = "Cat'inder";
-                $(".nyan-cat").remove();
-                this.displayOneCat(this.currentCat);
+                this.disableKonami();
             } else {
-                this.isKonamiEnable = true;
-
-                // Let the fun BEGINS !
-                this.nyanCatMusic.play();
-                document.querySelector(".title").innerHTML = "Catin'der";
-                $(".catinder-picture-img").attr("src", "img/nyan-cat-pic.jpg").load(function () {
-                    self.catinderInfosName.innerHTML = "Nyan Cat";
-                    self.catinderInfosAge.innerHTML = "42 ans";
-                });
-                var i;
-                for (i = 0; i < 10; i += 1) {
-                    this.spawnNyanCat();
-                }
+                this.enableKonami();
             }
         },
         spawnNyanCat: function () {
             var self = this;
             var nc = new Image();
-            // var body = $(this.body);
             nc = $(nc);
             nc.attr('src', 'img/nyan-cat.gif').load(function () {
                 nc.addClass("nyan-cat");
-
                 nc.appendTo(self.mainSection);
                 self.animateNyanCat(nc);
             });
