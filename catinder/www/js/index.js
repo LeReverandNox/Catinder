@@ -246,10 +246,11 @@
             var self = this;
             var delays = [];
             var duration = 300;
+            var minDuration = 100;
             this.catinderPictureHolder.addEventListener("touchstart", function (event) {
                 delays.push(event.timeStamp);
                 if (delays.length === 2) {
-                    if (delays[1] - delays[0] <= duration) {
+                    if (delays[1] - delays[0] <= duration && delays[1] - delays[0] >= minDuration) {
                         self.likeCat();
                     }
                     delays.splice(0, 1);
