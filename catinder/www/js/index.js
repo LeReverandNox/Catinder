@@ -64,6 +64,7 @@
             document.addEventListener("offline", this.changeConnectionStatus.bind(this));
             document.addEventListener("online", this.changeConnectionStatus.bind(this));
             document.addEventListener("touchstart", this.hideSidebar.bind(this));
+            document.addEventListener('deviceready', this.whenIsReady.bind(this));
 
             this.startCatSwipe();
             this.startCatDoubleTap();
@@ -402,6 +403,10 @@
             $(li).one("transitionend", function () {
                 $(li).remove();
             });
+        },
+        whenIsReady: function () {
+            // this.sidebar.removeClass("hidden");
+            navigator.splashscreen.hide();
         }
     };
     app.initialize();
