@@ -244,14 +244,6 @@ h1, .sidebar h2 {
     opacity: 0;
     transition: transform 0.5s, opacity 0.5s;
 }
-.fade-green {
-    background-color: rgba(39, 226, 148, 0.35);
-    transition:  background-color 0.3s;
-}
-.fade-red {
-    background-color: rgba(255, 92, 48, 0.35);
-    transition:  background-color 0.3s;
-}
 
 .catinder-picture-holder-holder {
     display: relative;
@@ -271,8 +263,7 @@ h1, .sidebar h2 {
 
 .fadeout {
     transform: scale(0.3);
-    opacity: 0;
-    transition: transform 0.5s, opacity 0.5s;
+    transition: transform 0.5s;
 }
 
 .button-grow {
@@ -347,4 +338,26 @@ width: 100px; */
 .copyright {
     text-align: center;
     padding-bottom: 10px;
+}
+
+.rotate-left{
+    transform: rotate(-90deg);
+    transition: all 1.5s, ease;
+    transform-origin: 0px 2000px;
+}
+
+.rotate-right {
+    transform: rotate(90deg);
+    transition: all 1.5s, ease;
+    transform-origin: 0px 2000px;
+}
+
+.fade-green {
+    background-color: rgba(39, 226, 148, 0.35);
+    transition:  background-color 0.3s;
+}
+.fade-red {
+    opacity: 0;
+    background-color: rgba(255, 92, 48, 0.35);
+    transition:  background-color 0.5s, opacity 1s;
 }
