@@ -476,6 +476,7 @@
             }
         },
         disenableKonami: function () {
+            var self = this;
             if (this.isKonamiEnable) {
                 this.isKonamiEnable = false;
 
@@ -483,13 +484,17 @@
                 this.nyanCatMusic.currentTime = 0;
                 document.querySelector(".title").innerHTML = "Cat'inder";
                 $(".nyan-cat").remove();
-
+                this.displayOneCat(this.currentCat);
             } else {
                 this.isKonamiEnable = true;
 
                 // Let the fun BEGINS !
                 this.nyanCatMusic.play();
                 document.querySelector(".title").innerHTML = "Catin'der";
+                $(".catinder-picture-img").attr("src", "img/nyan-cat-pic.jpg").load(function () {
+                    self.catinderInfosName.innerHTML = "Nyan Cat";
+                    self.catinderInfosAge.innerHTML = "42 ans";
+                });
                 var i;
                 for (i = 0; i < 10; i += 1) {
                     this.spawnNyanCat();
