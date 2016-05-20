@@ -345,3 +345,7 @@ width: 100px; */
 .hidden {
     display: none;
 }
+.copyright {
+    text-align: center;
+    padding-bottom: 10px;
+}
