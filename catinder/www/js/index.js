@@ -31,6 +31,8 @@
         catinderProfilDivs: null,
         konamiCode: ["U", "U", "D", "D", "L", "R", "L", "R", "B", "A"],
         onGoingCode: [],
+        isKonamiEnable: false,
+        nyanCatMusic: new Audio("sound/nyan-cat.mp3"),
         initialize: function () {
             this.populateAttributes();
             this.loadFromStorage();
@@ -63,6 +65,7 @@
             document.querySelector(".catinder-clear-lists").addEventListener("touchend", this.disgrowResetButton.bind(this));
             document.querySelector(".burger-button").addEventListener("touchstart", this.showSidebar.bind(this));
             document.querySelector(".sidebar-list").addEventListener("touchstart", this.handleSidebar.bind(this));
+            document.querySelector(".title").addEventListener("touchstart", this.disenableKonami.bind(this));
             document.addEventListener("offline", this.changeConnectionStatus.bind(this));
             document.addEventListener("online", this.changeConnectionStatus.bind(this));
             document.addEventListener("touchstart", this.hideSidebar.bind(this));
@@ -312,21 +315,20 @@
                         if (movesX[movesX.length - 1] - movesX[0] >= treshold) {
                             self.onGoingCode.push("R");
                             self.verifKonami();
-                        }
-                        else if (movesX[0] - movesX[movesX.length - 1] >= treshold) {
+                        } else if (movesX[0] - movesX[movesX.length - 1] >= treshold) {
                             self.onGoingCode.push("L");
                             self.verifKonami();
-                        }
-                        else if (movesY[movesY.length - 1] - movesY[0] >= treshold) {
+                        } else if (movesY[movesY.length - 1] - movesY[0] >= treshold) {
                             self.onGoingCode.push("D");
                             self.verifKonami();
-                        }
-                        else if (movesY[0] - movesY[movesY.length - 1] >= treshold) {
+                        } else if (movesY[0] - movesY[movesY.length - 1] >= treshold) {
                             self.onGoingCode.push("U");
                             self.verifKonami();
                         }
                     }
                 }
+                movesX = [];
+                movesY = [];
             });
         },
         loadFromStorage: function () {
@@ -470,7 +472,59 @@
             if (this.onGoingCode.length === 10) {
                 this.likeButton.removeClass("konami-a");
                 this.dislikeButton.removeClass("konami-b");
-                alert("KONAMIIIII");
+                this.disenableKonami();
+            }
+        },
+        disenableKonami: function () {
+            var self = this;
+            if (this.isKonamiEnable) {
+                this.isKonamiEnable = false;
+
+                this.nyanCatMusic.pause();
+                this.nyanCatMusic.currentTime = 0;
+                document.querySelector(".title").innerHTML = "Cat'inder";
+                $(".nyan-cat").remove();
+
+            } else {
+                this.isKonamiEnable = true;
+
+                // Let the fun BEGINS !
+                this.nyanCatMusic.play();
+                document.querySelector(".title").innerHTML = "Catin'der";
+                var i;
+                for (i = 0; i < 10; i += 1) {
+                    this.spawnNyanCat();
+                }
+            }
+        },
+        spawnNyanCat: function () {
+            var self = this;
+            var nc = new Image();
+            // var body = $(this.body);
+            nc = $(nc);
+            nc.attr('src', 'img/nyan-cat.gif').load(function () {
+                nc.addClass("nyan-cat");
+
+                nc.appendTo(self.mainSection);
+                self.animateNyanCat(nc);
+            });
+        },
+        animateNyanCat: function (nc) {
+            if (this.isKonamiEnable) {
+                var speed = Math.random() * (7500 - 2500) + 2500;
+                var y = Math.random() * (580 - -100) + -100;
+                var width = Math.random() * (750 - 250) + 250;
+
+                nc.css({
+                    left: "-500px",
+                    top: y,
+                    width: width
+                });
+                nc.animate({
+                    left: "500px"
+                }, speed, function () {
+                    self.animateNyanCat(nc);
+                });
             }
         }
     };
