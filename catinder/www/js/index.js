@@ -125,7 +125,7 @@
                 self.catinderPictureHolder.appendChild(img);
                 self.catinderInfosName.innerHTML = cat.name;
                 self.catinderInfosAge.innerHTML = cat.age + " ans";
-                self.catinderProfil.removeClass("grow fadeout");
+                self.catinderProfil.removeClass("grow fadeout rotate-left rotate-right");
                 self.catinderProfilDivs.removeClass("fade-green fade-red");
                 self.loading = false;
                 self.switchLoader();
@@ -157,7 +157,7 @@
                 }
             }
         },
-        dislikeCat: function () {
+        dislikeCat: function (source) {
             var self = this;
             if (this.loading === false && this.isSidebarOpen === false) {
                 if (this.currentCat !== null) {
@@ -166,7 +166,19 @@
                     this.catsHated.push(this.currentCat);
                     this.currentCat = null;
                     this.saveToStorage();
-                    this.catinderProfil.addClass("fadeout");
+
+                    switch (source) {
+                    case "button":
+                        this.catinderProfil.addClass("fadeout");
+                        break;
+                    case "swipe-left":
+                        this.catinderProfil.addClass("rotate-left");
+                        break;
+                    case "swipe-right":
+                        this.catinderProfil.addClass("rotate-right");
+                        break;
+                    }
+
                     this.catinderProfilDivs.addClass('fade-red');
                     this.catinderProfil.one("transitionend", function () {
                         self.prepareOneCat();
@@ -184,7 +196,7 @@
         growDislikeButton: function () {
             this.dislikeButton.removeClass('button-disgrow');
             this.dislikeButton.addClass('button-grow');
-            this.dislikeCat();
+            this.dislikeCat("button");
         },
         disgrowLikeButton: function () {
             this.likeButton.removeClass('button-grow');
@@ -274,7 +286,11 @@
                                 }
                             } else {
                                 // Swipe pour dislike
-                                self.dislikeCat();
+                                if (movesX[movesX.length - 1] - movesX[0] >= treshold) {
+                                    self.dislikeCat("swipe-right");
+                                } else {
+                                    self.dislikeCat("swipe-left");
+                                }
                             }
                         }
                     }
