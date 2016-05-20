@@ -476,7 +476,6 @@
             }
         },
         disenableKonami: function () {
-            var self = this;
             if (this.isKonamiEnable) {
                 this.isKonamiEnable = false;
 
@@ -510,6 +509,7 @@
             });
         },
         animateNyanCat: function (nc) {
+            var self = this;
             if (this.isKonamiEnable) {
                 var speed = Math.random() * (7500 - 2500) + 2500;
                 var y = Math.random() * (580 - -100) + -100;
