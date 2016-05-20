@@ -405,7 +405,6 @@
             });
         },
         whenIsReady: function () {
-            // this.sidebar.removeClass("hidden");
             navigator.splashscreen.hide();
         }
     };

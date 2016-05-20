@@ -332,13 +332,13 @@ width: 100px; */
 .ease-right {
     margin-left : 200px;
     opacity: 0;
-    transition: margin-left 0.5s, opacity 0.5s;
+    transition: margin-left 0.3s, opacity 0.3s;
     width: 335px;
 }
 .ease-left {
     margin-left : -200px;
     opacity: 0;
-    transition: margin-left 0.5s, opacity 0.5s;
+    transition: margin-left 0.3s, opacity 0.3s;
     width: 335px;
 }
 
