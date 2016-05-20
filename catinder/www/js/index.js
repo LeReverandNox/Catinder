@@ -29,6 +29,8 @@
         resetButton: null,
         body: null,
         catinderProfilDivs: null,
+        konamiCode: ["U", "U", "D", "D", "L", "R", "L", "R", "B", "A"],
+        onGoingCode: [],
         initialize: function () {
             this.populateAttributes();
             this.loadFromStorage();
@@ -191,11 +193,23 @@
         growLikeButton: function () {
             this.likeButton.removeClass('button-disgrow');
             this.likeButton.addClass('button-grow');
+
+            if (this.likeButton.hasClass("konami-a")) {
+                this.onGoingCode.push("A");
+                this.verifKonami();
+            }
+
             this.likeCat();
         },
         growDislikeButton: function () {
             this.dislikeButton.removeClass('button-disgrow');
             this.dislikeButton.addClass('button-grow');
+
+            if (this.dislikeButton.hasClass("konami-b")) {
+                this.onGoingCode.push("B");
+                this.verifKonami();
+            }
+
             this.dislikeCat("button");
         },
         disgrowLikeButton: function () {
@@ -241,6 +255,7 @@
         },
         startCatSwipe: function () {
             var movesX = [];
+            var movesY = [];
             var delays = [];
             var treshold = 75;
             var duration = 1000;
@@ -249,6 +264,7 @@
 
             var movesPush = function (e) {
                 movesX.push(e.touches[0].clientX);
+                movesY.push(e.touches[0].clientY);
             };
 
             this.body.addEventListener("touchstart", function (e) {
@@ -292,6 +308,22 @@
                                     self.dislikeCat("swipe-left");
                                 }
                             }
+                        }
+                        if (movesX[movesX.length - 1] - movesX[0] >= treshold) {
+                            self.onGoingCode.push("R");
+                            self.verifKonami();
+                        }
+                        else if (movesX[0] - movesX[movesX.length - 1] >= treshold) {
+                            self.onGoingCode.push("L");
+                            self.verifKonami();
+                        }
+                        else if (movesY[movesY.length - 1] - movesY[0] >= treshold) {
+                            self.onGoingCode.push("D");
+                            self.verifKonami();
+                        }
+                        else if (movesY[0] - movesY[movesY.length - 1] >= treshold) {
+                            self.onGoingCode.push("U");
+                            self.verifKonami();
                         }
                     }
                 }
@@ -422,6 +454,24 @@
         },
         whenIsReady: function () {
             navigator.splashscreen.hide();
+        },
+        verifKonami: function () {
+            if (this.konamiCode[this.onGoingCode.length - 1] === undefined || this.onGoingCode[this.onGoingCode.length - 1] !== this.konamiCode[this.onGoingCode.length - 1]) {
+                this.onGoingCode = [];
+                this.likeButton.removeClass("konami-a");
+                this.dislikeButton.removeClass("konami-b");
+            }
+
+            if (this.onGoingCode.length === 8) {
+                this.likeButton.addClass("konami-a");
+                this.dislikeButton.addClass("konami-b");
+            }
+
+            if (this.onGoingCode.length === 10) {
+                this.likeButton.removeClass("konami-a");
+                this.dislikeButton.removeClass("konami-b");
+                alert("KONAMIIIII");
+            }
         }
     };
     app.initialize();
