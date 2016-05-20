@@ -159,15 +159,17 @@ body {
 }
 
 .burger-button {
-    /*background-image: url(../img/burger-blanc2.png);*/
-    width: 50px;
-    height: 41px;
-    top: 15px;
-    left: 15px;
+    width: 35px;
+    height: 20px;
+    top: 24px;
+    left: 20px;
     position: absolute;
 }
 .burger-trait {
-
+    background-color: white;
+    width:  100%;
+    height: 3px;
+    margin-bottom: 5px;
 }
 
 /*.sidebar {*/
@@ -183,7 +185,6 @@ body {
     -o-box-shadow: 5px 0px 5px 0px rgba(101, 101, 101, 0.5);
     box-shadow: 5px 0px 5px 0px rgba(101, 101, 101, 0.5);
     filter:progid:DXImageTransform.Microsoft.Shadow(color=rgba(101, 101, 101, 0.5), Direction=90, Strength=5);
-    /*position: relative;*/
 }
 .sidebar-languette {
     background-image: url(../img/sidebar-languette.png);
@@ -227,7 +228,7 @@ h1, .sidebar h2 {
     font-weight:normal;
     margin:0px;
     overflow:visible;
-    padding:15px;
+    padding:13px;
     text-align:center;
     color: #FFFFFF;
     text-transform: capitalize;
@@ -339,4 +340,8 @@ width: 100px; */
     opacity: 0;
     transition: margin-left 0.5s, opacity 0.5s;
     width: 335px;
+}
+
+.hidden {
+    display: none;
 }
