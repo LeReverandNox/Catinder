@@ -159,12 +159,15 @@ body {
 }
 
 .burger-button {
-    background-image: url(../img/burger-blanc2.png);
+    /*background-image: url(../img/burger-blanc2.png);*/
     width: 50px;
     height: 41px;
     top: 15px;
     left: 15px;
     position: absolute;
+}
+.burger-trait {
+
 }
 
 /*.sidebar {*/
