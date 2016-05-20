@@ -161,9 +161,8 @@ body {
 .burger-button {
     width: 35px;
     height: 20px;
-    top: 24px;
-    left: 20px;
     position: absolute;
+    padding: 25px 20px;
 }
 .burger-trait {
     background-color: white;
