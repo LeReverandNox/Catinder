@@ -1,5 +1,5 @@
-/*jslint browser this for bitwise */
-/*global alert $ Tool tools toolFactory URL WebSocket FileReader Blob*/
+/*jslint browser this for */
+/*global alert $ */
 
 (function () {
     "use strict";
