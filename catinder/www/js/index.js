@@ -76,7 +76,7 @@
         },
         getCats: function () {
             var self = this;
-            var url = "http://catinder.samsung-campus.net/proxy.php";
+            var url = "http://catinder.rodolphe-laidet.com";
 
             if (this.geoloc.enabled) {
                 url = url + "?position=" + this.geoloc.coordinates.lat + "," + this.geoloc.coordinates.long;
